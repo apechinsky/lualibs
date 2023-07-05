@@ -7,7 +7,7 @@ local Path = require('path')
 -- In both cases '/' separator is used.
 -- function is used as simple Path constructor for unit tests.
 --
-local function path(value)
+local function newpath(value)
     if type(value) == 'string' then
         return Path:parse(value, '/')
     elseif type(value) == 'table' then
@@ -200,9 +200,9 @@ describe("Path.size", function ()
 end)
 
 local function assertRelative(pathSegments, baseSegments, expectedSegments)
-    local pathObject = path(pathSegments)
-    local baseObject = path(baseSegments)
-    local expectedObject = path(expectedSegments)
+    local pathObject = newpath(pathSegments)
+    local baseObject = newpath(baseSegments)
+    local expectedObject = newpath(expectedSegments)
 
     local resultObject = pathObject:relative(baseObject)
 

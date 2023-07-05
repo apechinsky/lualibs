@@ -43,7 +43,9 @@ function Path:parse(string, separator)
         if segment ~= '' then
             table.insert(segments, segment)
         end
-        previousStartIndex = startIndex ~= nil and endIndex + 1
+        if startIndex ~= nil then
+            previousStartIndex = endIndex + 1
+        end
 
     until startIndex == nil
 
