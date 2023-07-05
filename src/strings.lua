@@ -5,7 +5,7 @@ local strings = {}
 --
 -- @param str string to test
 -- @param suffix suffix
--- 
+--
 function strings.has_suffix(str, suffix)
     if str == nil then
         return suffix == nil

@@ -9,7 +9,7 @@ local Path = require('path')
 --
 local function newpath(value)
     if type(value) == 'string' then
-        return Path:parse(value, '/')
+        return Path.parse(value, '/')
     elseif type(value) == 'table' then
         return Path:new(value, '/')
     else
@@ -21,47 +21,47 @@ end
 describe("Path.parse", function()
 
     it("nil string parsed as nil path", function ()
-        local path = Path:parse(nil, '.')
+        local path = Path.parse(nil, '.')
         assert.are.equals(nil, path)
     end)
 
     it("empty string parsed as empty path", function ()
-        local path = Path:parse('', '.')
+        local path = Path.parse('', '.')
         assert.are.same({}, path.segments)
     end)
 
     it("string without separators is single segment path", function ()
-        local path = Path:parse('abc', '.')
+        local path = Path.parse('abc', '.')
         assert.are.same({'abc'}, path.segments)
     end)
 
     it("two segments path", function ()
-        local path = Path:parse('ab.cd', '.')
+        local path = Path.parse('ab.cd', '.')
         assert.are.same({'ab', 'cd'}, path.segments)
     end)
 
     it("three segments path", function ()
-        local path = Path:parse('ab.cd.hello', '.')
+        local path = Path.parse('ab.cd.hello', '.')
         assert.are.same({'ab', 'cd', 'hello'}, path.segments)
     end)
 
     it("alternative separator", function ()
-        local path = Path:parse('ab/cd/hello', '/')
+        local path = Path.parse('ab/cd/hello', '/')
         assert.are.same({'ab', 'cd', 'hello'}, path.segments)
     end)
 
     it("alternative separator2", function ()
-        local path = Path:parse('ab_cd_hello', '_')
+        local path = Path.parse('ab_cd_hello', '_')
         assert.are.same({'ab', 'cd', 'hello'}, path.segments)
     end)
 
     it("subsequent separators treated as single one", function ()
-        local path = Path:parse('ab..cd', '.')
+        local path = Path.parse('ab..cd', '.')
         assert.are.same({'ab', 'cd'}, path.segments)
     end)
 
     it("separator only treated as empty path", function ()
-        local path = Path:parse('.', '.')
+        local path = Path.parse('.', '.')
         assert.are.same({}, path.segments)
     end)
 end)

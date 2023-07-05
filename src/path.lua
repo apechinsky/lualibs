@@ -25,7 +25,7 @@ function Path:new(segments, separator)
     return instance
 end
 
-function Path:parse(string, separator)
+function Path.parse(string, separator)
     if string == nil then
         return nil
     end
@@ -60,12 +60,12 @@ function Path:is_empty()
     return self:size() == 0
 end
 
-function Path:cloneTable(source)
+function Path.cloneTable(source)
     return { table.unpack(source) }
 end
 
 function Path:clone()
-    local segments = Path:cloneTable(self.segments)
+    local segments = Path.cloneTable(self.segments)
     return Path:new(segments, self.separator)
 end
 
