@@ -1,6 +1,6 @@
 require("matcher_combinators.luassert")
 
-local Path = require('path')
+local Path = require('srplib.path')
 
 --
 -- Creates Path object from string or table.

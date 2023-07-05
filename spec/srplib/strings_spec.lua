@@ -1,6 +1,6 @@
 require("matcher_combinators.luassert")
 
-local strings = require('strings')
+local strings = require('srplib.strings')
 
 describe("Strings.trim_right", function()
 
