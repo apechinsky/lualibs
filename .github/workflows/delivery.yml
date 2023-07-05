@@ -1,0 +1,37 @@
+name: Delivery
+
+on:
+  push:
+    tags:
+    - v*
+
+jobs:
+  release:
+    name: Deploy on LuaRocks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup ‘lua’
+      uses: leafo/gh-actions-lua@v9
+      with:
+        luaVersion: "5.1.5"
+
+    - name: Setup ‘luarocks’
+      uses: leafo/gh-actions-luarocks@v4
+
+    - name: Install dependencies
+      run: |
+        luarocks install luacheck
+        luarocks test --prepare
+
+    - name: Run linter
+      run: luacheck src/ spec/
+
+    - name: Run tests
+      run: luarocks test
+
+    - name: Publish
+      run: luarocks upload *.rockspec --temp-key ${{ secrets.LUAROCKS_KEY }}

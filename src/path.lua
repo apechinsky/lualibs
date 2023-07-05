@@ -13,7 +13,7 @@
 -- Specialized libraries may reuse path to implement specifics.
 --
 
-Path = {}
+local Path = {}
 
 function Path:new(segments, separator)
     self.__index = self
@@ -142,4 +142,4 @@ function Path:relative(base)
 
 end
 
-
+return Path

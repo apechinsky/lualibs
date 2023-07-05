@@ -1,0 +1,49 @@
+name: Integration
+
+on:
+  push:
+    branches: [ main, alpha ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Tests on Lua
+    strategy:
+      fail-fast: true
+      matrix:
+        version: ["5.4.4", "5.3.6", "5.2.4", "5.1.5", "luajit-2.0.5", "luajit-openresty"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup ‘lua’
+      uses: leafo/gh-actions-lua@v9
+      with:
+        luaVersion: ${{ matrix.version }}
+
+    - name: Setup ‘luarocks’
+      uses: leafo/gh-actions-luarocks@v4
+
+    - name: Cache Lua machinery
+      uses: actions/cache@v2
+      with:
+        path: |
+          .install
+          .lua
+          .luarocks
+        key: lua-${{ matrix.version }}-${{ hashFiles('*.rockspec') }}
+
+    - name: Install dependencies
+      run: |
+        luarocks install luacheck
+        luarocks test --prepare
+
+    - name: Run linter
+      run: luacheck src/ spec/
+
+    - name: Run tests
+      run: luarocks test

@@ -1,6 +1,6 @@
-require ('busted.runner')()
+require("matcher_combinators.luassert")
 
-require('path')
+local Path = require('path')
 
 --
 -- Creates Path object from string or table.
