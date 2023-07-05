@@ -1,11 +1,11 @@
 package = "srplib"
-version = "0.1.0-1"
+version = "0.2.0-1"
 
 rockspec_format = "3.0"
 
 source = {
    url = "git://github.com/apechinsky/srplib.lua",
-   tag = "v0.1.0"
+   tag = "v0.2.0"
 }
 
 description = {
@@ -30,6 +30,7 @@ test = {
 build = {
    type = "builtin",
    modules = {
-      ["path"] = "src/path.lua"
+      ["path"] = "src/srplib/path.lua",
+      ["strings"] = "src/srplib/strings.lua"
    }
 }
